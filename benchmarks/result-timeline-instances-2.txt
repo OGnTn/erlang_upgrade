@@ -1,0 +1,576 @@
+Timeline test with varying instance count
+Instance count: 2
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 2
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.75.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.76.0>
+Starting benchmark timeline_para_instances: 1
+Wall clock time = 696.603 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 2
+Wall clock time = 487.18 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 3
+Wall clock time = 482.263 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 4
+Wall clock time = 480.699 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 5
+Wall clock time = 488.925 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 6
+Wall clock time = 478.495 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 7
+Wall clock time = 484.5 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 8
+Wall clock time = 486.648 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 9
+Wall clock time = 484.319 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 10
+Wall clock time = 487.774 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 11
+Wall clock time = 486.587 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 12
+Wall clock time = 486.82 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 13
+Wall clock time = 484.196 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 14
+Wall clock time = 486.349 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 15
+Wall clock time = 487.966 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 16
+Wall clock time = 484.322 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 17
+Wall clock time = 485.153 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 18
+Wall clock time = 488.006 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 19
+Wall clock time = 484.788 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 20
+Wall clock time = 486.33 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 21
+Wall clock time = 484.503 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 22
+Wall clock time = 488.295 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 23
+Wall clock time = 488.059 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 24
+Wall clock time = 479.055 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 25
+Wall clock time = 483.704 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 26
+Wall clock time = 478.853 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 27
+Wall clock time = 482.098 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 28
+Wall clock time = 491.635 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 29
+Wall clock time = 482.863 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 30
+Wall clock time = 487.048 ms
+timeline_para_instances done
+Instance count: 4
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 4
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.107.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.108.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.109.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.110.0>
+Starting benchmark timeline_para_instances: 1
+Wall clock time = 1052.699 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 2
+Wall clock time = 689.177 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 3
+Wall clock time = 654.378 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 4
+Wall clock time = 673.32 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 5
+Wall clock time = 632.758 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 6
+Wall clock time = 612.687 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 7
+Wall clock time = 652.671 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 8
+Wall clock time = 622.283 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 9
+Wall clock time = 618.125 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 10
+Wall clock time = 657.739 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 11
+Wall clock time = 609.83 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 12
+Wall clock time = 609.576 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 13
+Wall clock time = 618.489 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 14
+Wall clock time = 616.64 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 15
+Wall clock time = 672.352 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 16
+Wall clock time = 617.768 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 17
+Wall clock time = 669.7 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 18
+Wall clock time = 613.657 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 19
+Wall clock time = 626.305 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 20
+Wall clock time = 660.991 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 21
+Wall clock time = 691.186 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 22
+Wall clock time = 613.66 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 23
+Wall clock time = 667.956 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 24
+Wall clock time = 654.518 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 25
+Wall clock time = 616.518 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 26
+Wall clock time = 651.208 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 27
+Wall clock time = 607.866 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 28
+Wall clock time = 619.474 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 29
+Wall clock time = 657.476 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 30
+Wall clock time = 612.955 ms
+timeline_para_instances done
+Instance count: 6
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 6
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.141.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.142.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.143.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.144.0>
+Instance: '5'
+Server starting at '5'
+Server PID: <0.145.0>
+Instance: '6'
+Server starting at '6'
+Server PID: <0.146.0>
+Starting benchmark timeline_para_instances: 1
+Wall clock time = 1287.314 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 2
+Wall clock time = 1024.591 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 3
+Wall clock time = 792.392 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 4
+Wall clock time = 798.706 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 5
+Wall clock time = 799.977 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 6
+Wall clock time = 790.798 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 7
+Wall clock time = 778.289 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 8
+Wall clock time = 785.646 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 9
+Wall clock time = 792.321 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 10
+Wall clock time = 788.746 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 11
+Wall clock time = 782.972 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 12
+Wall clock time = 788.226 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 13
+Wall clock time = 779.711 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 14
+Wall clock time = 785.119 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 15
+Wall clock time = 782.018 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 16
+Wall clock time = 797.747 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 17
+Wall clock time = 781.481 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 18
+Wall clock time = 792.438 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 19
+Wall clock time = 838.237 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 20
+Wall clock time = 812.467 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 21
+Wall clock time = 840.161 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 22
+Wall clock time = 781.325 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 23
+Wall clock time = 778.491 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 24
+Wall clock time = 781.091 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 25
+Wall clock time = 787.426 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 26
+Wall clock time = 785.169 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 27
+Wall clock time = 790.677 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 28
+Wall clock time = 790.659 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 29
+Wall clock time = 791.804 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 30
+Wall clock time = 779.509 ms
+timeline_para_instances done
+Instance count: 8
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 8
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.177.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.178.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.179.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.180.0>
+Instance: '5'
+Server starting at '5'
+Server PID: <0.181.0>
+Instance: '6'
+Server starting at '6'
+Server PID: <0.182.0>
+Instance: '7'
+Server starting at '7'
+Server PID: <0.183.0>
+Instance: '8'
+Server starting at '8'
+Server PID: <0.184.0>
+Starting benchmark timeline_para_instances: 1
+Wall clock time = 1404.066 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 2
+Wall clock time = 1074.696 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 3
+Wall clock time = 867.325 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 4
+Wall clock time = 821.403 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 5
+Wall clock time = 811.821 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 6
+Wall clock time = 819.65 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 7
+Wall clock time = 820.751 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 8
+Wall clock time = 810.701 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 9
+Wall clock time = 826.873 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 10
+Wall clock time = 808.612 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 11
+Wall clock time = 817.586 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 12
+Wall clock time = 910.871 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 13
+Wall clock time = 814.414 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 14
+Wall clock time = 817.887 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 15
+Wall clock time = 911.753 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 16
+Wall clock time = 818.373 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 17
+Wall clock time = 813.739 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 18
+Wall clock time = 822.607 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 19
+Wall clock time = 822.478 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 20
+Wall clock time = 918.074 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 21
+Wall clock time = 838.951 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 22
+Wall clock time = 907.804 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 23
+Wall clock time = 818.723 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 24
+Wall clock time = 818.992 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 25
+Wall clock time = 913.835 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 26
+Wall clock time = 818.857 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 27
+Wall clock time = 826.831 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 28
+Wall clock time = 821.563 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 29
+Wall clock time = 912.337 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 30
+Wall clock time = 818.111 ms
+timeline_para_instances done
+Instance count: 10
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 10
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.215.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.216.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.217.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.218.0>
+Instance: '5'
+Server starting at '5'
+Server PID: <0.219.0>
+Instance: '6'
+Server starting at '6'
+Server PID: <0.220.0>
+Instance: '7'
+Server starting at '7'
+Server PID: <0.221.0>
+Instance: '8'
+Server starting at '8'
+Server PID: <0.222.0>
+Instance: '9'
+Server starting at '9'
+Server PID: <0.223.0>
+Instance: '10'
+Server starting at '10'
+Server PID: <0.224.0>
+Starting benchmark timeline_para_instances: 1
+Wall clock time = 1708.187 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 2
+Wall clock time = 1142.373 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 3
+Wall clock time = 1214.701 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 4
+Wall clock time = 976.644 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 5
+Wall clock time = 958.395 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 6
+Wall clock time = 961.223 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 7
+Wall clock time = 961.867 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 8
+Wall clock time = 961.648 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 9
+Wall clock time = 965.456 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 10
+Wall clock time = 971.605 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 11
+Wall clock time = 961.788 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 12
+Wall clock time = 965.263 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 13
+Wall clock time = 974.011 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 14
+Wall clock time = 958.824 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 15
+Wall clock time = 1085.279 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 16
+Wall clock time = 963.926 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 17
+Wall clock time = 971.532 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 18
+Wall clock time = 957.492 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 19
+Wall clock time = 1087.611 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 20
+Wall clock time = 960.159 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 21
+Wall clock time = 963.786 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 22
+Wall clock time = 1077.239 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 23
+Wall clock time = 954.821 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 24
+Wall clock time = 980.477 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 25
+Wall clock time = 965.992 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 26
+Wall clock time = 972.412 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 27
+Wall clock time = 967.955 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 28
+Wall clock time = 976.383 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 29
+Wall clock time = 964.861 ms
+timeline_para_instances done
+Starting benchmark timeline_para_instances: 30
+Wall clock time = 1076.838 ms
+timeline_para_instances done

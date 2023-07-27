@@ -1,0 +1,576 @@
+Send message test with varying isntance count
+Instance count2
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 2
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.75.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.76.0>
+Starting benchmark send_message_para_instances: 1
+Wall clock time = 256.002 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 2
+Wall clock time = 215.823 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 3
+Wall clock time = 209.86 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 4
+Wall clock time = 216.222 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 5
+Wall clock time = 210.426 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 6
+Wall clock time = 212.168 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 7
+Wall clock time = 213.724 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 8
+Wall clock time = 213.022 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 9
+Wall clock time = 219.057 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 10
+Wall clock time = 215.96 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 11
+Wall clock time = 210.202 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 12
+Wall clock time = 213.903 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 13
+Wall clock time = 212.495 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 14
+Wall clock time = 213.533 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 15
+Wall clock time = 213.132 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 16
+Wall clock time = 213.883 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 17
+Wall clock time = 213.625 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 18
+Wall clock time = 221.409 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 19
+Wall clock time = 217.235 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 20
+Wall clock time = 213.773 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 21
+Wall clock time = 220.494 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 22
+Wall clock time = 218.961 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 23
+Wall clock time = 215.232 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 24
+Wall clock time = 211.14 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 25
+Wall clock time = 212.359 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 26
+Wall clock time = 210.273 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 27
+Wall clock time = 295.212 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 28
+Wall clock time = 279.194 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 29
+Wall clock time = 216.618 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 30
+Wall clock time = 223.083 ms
+send_message_para_instances done
+Instance count4
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 4
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.107.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.108.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.109.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.110.0>
+Starting benchmark send_message_para_instances: 1
+Wall clock time = 353.334 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 2
+Wall clock time = 306.904 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 3
+Wall clock time = 307.104 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 4
+Wall clock time = 306.722 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 5
+Wall clock time = 305.129 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 6
+Wall clock time = 305.008 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 7
+Wall clock time = 301.242 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 8
+Wall clock time = 306.768 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 9
+Wall clock time = 303.695 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 10
+Wall clock time = 304.081 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 11
+Wall clock time = 304.997 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 12
+Wall clock time = 308.704 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 13
+Wall clock time = 313.513 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 14
+Wall clock time = 308.686 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 15
+Wall clock time = 303.983 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 16
+Wall clock time = 310.772 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 17
+Wall clock time = 310.198 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 18
+Wall clock time = 310.762 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 19
+Wall clock time = 301.636 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 20
+Wall clock time = 309.658 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 21
+Wall clock time = 310.646 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 22
+Wall clock time = 312.132 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 23
+Wall clock time = 304.654 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 24
+Wall clock time = 306.928 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 25
+Wall clock time = 310.427 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 26
+Wall clock time = 305.734 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 27
+Wall clock time = 305.233 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 28
+Wall clock time = 310.419 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 29
+Wall clock time = 310.48 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 30
+Wall clock time = 312.039 ms
+send_message_para_instances done
+Instance count6
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 6
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.141.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.142.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.143.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.144.0>
+Instance: '5'
+Server starting at '5'
+Server PID: <0.145.0>
+Instance: '6'
+Server starting at '6'
+Server PID: <0.146.0>
+Starting benchmark send_message_para_instances: 1
+Wall clock time = 488.737 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 2
+Wall clock time = 425.968 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 3
+Wall clock time = 432.214 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 4
+Wall clock time = 422.053 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 5
+Wall clock time = 433.086 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 6
+Wall clock time = 432.424 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 7
+Wall clock time = 429.673 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 8
+Wall clock time = 420.021 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 9
+Wall clock time = 427.399 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 10
+Wall clock time = 427.968 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 11
+Wall clock time = 429.378 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 12
+Wall clock time = 426.7 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 13
+Wall clock time = 423.17 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 14
+Wall clock time = 427.583 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 15
+Wall clock time = 430.411 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 16
+Wall clock time = 423.102 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 17
+Wall clock time = 430.978 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 18
+Wall clock time = 419.705 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 19
+Wall clock time = 432.95 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 20
+Wall clock time = 428.581 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 21
+Wall clock time = 433.181 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 22
+Wall clock time = 433.312 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 23
+Wall clock time = 427.54 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 24
+Wall clock time = 429.701 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 25
+Wall clock time = 439.074 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 26
+Wall clock time = 432.323 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 27
+Wall clock time = 422.981 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 28
+Wall clock time = 426.485 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 29
+Wall clock time = 428.471 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 30
+Wall clock time = 428.062 ms
+send_message_para_instances done
+Instance count8
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 8
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.177.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.178.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.179.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.180.0>
+Instance: '5'
+Server starting at '5'
+Server PID: <0.181.0>
+Instance: '6'
+Server starting at '6'
+Server PID: <0.182.0>
+Instance: '7'
+Server starting at '7'
+Server PID: <0.183.0>
+Instance: '8'
+Server starting at '8'
+Server PID: <0.184.0>
+Starting benchmark send_message_para_instances: 1
+Wall clock time = 72.931 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 2
+Wall clock time = 66.682 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 3
+Wall clock time = 67.039 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 4
+Wall clock time = 66.447 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 5
+Wall clock time = 66.968 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 6
+Wall clock time = 67.0 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 7
+Wall clock time = 66.827 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 8
+Wall clock time = 67.328 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 9
+Wall clock time = 68.034 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 10
+Wall clock time = 67.403 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 11
+Wall clock time = 67.633 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 12
+Wall clock time = 67.39 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 13
+Wall clock time = 67.345 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 14
+Wall clock time = 67.122 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 15
+Wall clock time = 67.528 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 16
+Wall clock time = 67.052 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 17
+Wall clock time = 67.158 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 18
+Wall clock time = 66.519 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 19
+Wall clock time = 67.145 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 20
+Wall clock time = 67.217 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 21
+Wall clock time = 68.025 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 22
+Wall clock time = 66.507 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 23
+Wall clock time = 67.717 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 24
+Wall clock time = 66.688 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 25
+Wall clock time = 67.383 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 26
+Wall clock time = 67.012 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 27
+Wall clock time = 66.751 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 28
+Wall clock time = 67.535 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 29
+Wall clock time = 66.542 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 30
+Wall clock time = 67.642 ms
+send_message_para_instances done
+Instance count10
+Parameters:
+Number of users: 5000
+Number of subscriptions: 30
+Number of messages: 20
+Number of instances: 10
+
+Instance: '1'
+Server starting at '1'
+Server PID: <0.215.0>
+Instance: '2'
+Server starting at '2'
+Server PID: <0.216.0>
+Instance: '3'
+Server starting at '3'
+Server PID: <0.217.0>
+Instance: '4'
+Server starting at '4'
+Server PID: <0.218.0>
+Instance: '5'
+Server starting at '5'
+Server PID: <0.219.0>
+Instance: '6'
+Server starting at '6'
+Server PID: <0.220.0>
+Instance: '7'
+Server starting at '7'
+Server PID: <0.221.0>
+Instance: '8'
+Server starting at '8'
+Server PID: <0.222.0>
+Instance: '9'
+Server starting at '9'
+Server PID: <0.223.0>
+Instance: '10'
+Server starting at '10'
+Server PID: <0.224.0>
+Starting benchmark send_message_para_instances: 1
+Wall clock time = 763.76 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 2
+Wall clock time = 665.455 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 3
+Wall clock time = 674.263 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 4
+Wall clock time = 663.182 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 5
+Wall clock time = 671.739 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 6
+Wall clock time = 679.972 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 7
+Wall clock time = 678.05 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 8
+Wall clock time = 668.285 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 9
+Wall clock time = 678.398 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 10
+Wall clock time = 662.855 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 11
+Wall clock time = 664.743 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 12
+Wall clock time = 675.631 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 13
+Wall clock time = 675.716 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 14
+Wall clock time = 666.078 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 15
+Wall clock time = 665.335 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 16
+Wall clock time = 676.168 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 17
+Wall clock time = 676.235 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 18
+Wall clock time = 662.392 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 19
+Wall clock time = 677.297 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 20
+Wall clock time = 666.671 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 21
+Wall clock time = 665.804 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 22
+Wall clock time = 687.889 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 23
+Wall clock time = 666.229 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 24
+Wall clock time = 670.249 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 25
+Wall clock time = 666.255 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 26
+Wall clock time = 677.087 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 27
+Wall clock time = 671.535 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 28
+Wall clock time = 667.21 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 29
+Wall clock time = 677.175 ms
+send_message_para_instances done
+Starting benchmark send_message_para_instances: 30
+Wall clock time = 666.666 ms
+send_message_para_instances done
