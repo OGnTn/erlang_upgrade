@@ -24,11 +24,13 @@
 % Returns a pid that should be used for subsequent requests by this client.
 -spec register_user(pid(), string()) -> {pid(), user_registered}.
 register_user(ServerPid, UserName) ->
-    ServerPid ! {self(), register_user, UserName},
-    receive
-        {ResponsePid, user_registered} ->
-            ResponsePid
-    end.
+           ServerPid ! {self(), register_user, UserName},
+           receive
+                {ResponsePid, user_registered} ->
+                    ResponsePid;
+                {ResponsePid, user_already_exists} ->
+                    ResponsePid
+           end.
 
 % Log in.
 % For simplicity, we do not request a password: authorization and security are

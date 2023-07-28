@@ -14,7 +14,7 @@
     init_instance/1,
     initialize_with/2,
     server_actor/2,
-    instance_actor/6,
+    instance_actor/7,
     typical_session_1/1,
     typical_session_2/1,
     initialize/0
@@ -33,7 +33,7 @@ init_instance(Address) ->
     FirstServer = spawn_link(?MODULE, server_actor, [Address, dict:new()]),
     catch unregister(server_actor),
     io:format("Server starting at ~p~n", [FirstServer]),
-    InstancePid = spawn_link(?MODULE, instance_actor, [Address, 0, FirstServer, 1, 2, [FirstServer]]),
+    InstancePid = spawn_link(?MODULE, instance_actor, [Address, 0, FirstServer, 1, 2, [FirstServer], dict:new()]),
     catch unregister(instance_actor),
     register(Address, InstancePid),
     io:format("Instance starting at ~p~n", [InstancePid]),
@@ -61,50 +61,57 @@ initialize_with(Address, Users) ->
 
 
 
-instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids) ->
+instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users) ->
     receive
         {Sender, register_user, UserName} ->
-            if
-                CurrentUserCount >= MaxUsersPerInstance ->
-                    
-                    NewServerPid = spawn_link(?MODULE, server_actor, [Address, dict:new()]),
-                    io:format("Too many users, new server starting at ~p~n", [NewServerPid]),
-                    NewCurrentServer = NewServerPid,
-                    NewCurrentServerCount = CurrentServerCount + 1,
-                    NewCurrentUserCount = 0,
-                    NewServerPid ! {Sender, register_user, UserName},
-                    NewServerPids = ServerPids ++ [NewCurrentServer];
-                true ->
-                    CurrentServer ! {Sender, register_user, UserName},
-                    NewCurrentServer = CurrentServer,
-                    NewCurrentServerCount = CurrentServerCount,
-                    NewCurrentUserCount = CurrentUserCount + 1,
-                    NewServerPids = ServerPids
-            end,
-            instance_actor(Address, NewCurrentUserCount, NewCurrentServer, NewCurrentServerCount, MaxUsersPerInstance, NewServerPids);
+            case dict:find(UserName, Users) of
+                {ok, Value}->
+                    io:format("User ~p already exists~n", [Value]),
+                    Sender ! {self(), user_already_exists},
+                    instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users);
+                _Else ->
+                    if
+                        CurrentUserCount >= MaxUsersPerInstance ->
+                            NewServerPid = spawn_link(?MODULE, server_actor, [Address, dict:new()]),
+                            io:format("Too many users, new server starting at ~p~n", [NewServerPid]),
+                            NewCurrentServer = NewServerPid,
+                            NewCurrentServerCount = CurrentServerCount + 1,
+                            NewCurrentUserCount = 0,
+                            NewServerPid ! {Sender, register_user, UserName},
+                            NewServerPids = ServerPids ++ [NewCurrentServer],
+                            NewUsers = dict:store(UserName, NewServerPid, Users);
+                        true ->
+                            CurrentServer ! {Sender, register_user, UserName},
+                            NewCurrentServer = CurrentServer,
+                            NewCurrentServerCount = CurrentServerCount,
+                            NewCurrentUserCount = CurrentUserCount + 1,
+                            NewServerPids = ServerPids,
+                            NewUsers = dict:store(UserName, CurrentServer, Users)
+                    end,
+                    instance_actor(Address, NewCurrentUserCount, NewCurrentServer, NewCurrentServerCount, MaxUsersPerInstance, NewServerPids, NewUsers)
+            end;
         {Sender, get_profile, Username} ->
-            % check for each server in serverpids if it has the user, until we can return the user
-            lists:foreach(fun(ServerPid) ->
-                io:fwrite("checking if user is at address~n"),
-                io:fwrite("~w~n", [ServerPid]),
-                ServerPid ! {Sender, is_profile_here, Username}
-                %receive
-                %    {ServerPid, profile_here, UserName, Messages} ->
-                %        io:fwrite("got profile, returning to sender~n"),
-                %        Sender ! {ServerPid, profile, UserName, Messages};
-                %    {ServerPid, profile_not_here, _} ->
-                %        io:fwrite("profile wasn't here~n"),
-                %        ok
-                %end
-              end, ServerPids),
-            instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids)
+            
+            ContainsAt = string:str(Username, "@"),
+                if
+                    ContainsAt > 0 ->
+                        [_Name, _] = string:tokens(Username, "@"),
+                        {_, UserServerPid} = dict:find(_Name, Users),
+                        UserServerPid ! {Sender, get_profile, Username};
+                    true ->
+                        {_, UserServerPid} = dict:find(Username, Users),
+                        UserServerPid ! {Sender, get_profile, Username}
+                end,
+            instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users)
     end.
+
 
 
 server_actor(HostAddress, Users) ->
     receive
         {Sender, register_user, UserName} ->
             NewUsers = dict:store(UserName, create_user(UserName), Users),
+            io:fwrite("registering user ~p~n", [UserName]),
             Sender ! {self(), user_registered},
             server_actor(HostAddress, NewUsers);
         {Sender, log_in, _UserName} ->

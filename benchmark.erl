@@ -7,7 +7,8 @@
     test_timeline_para_instances/0,
     test_send_message/0,
     test_send_message_para_users/0,
-    test_send_message_para_instances/0
+    test_send_message_para_instances/0,
+    test_test_para_inst/0
 ]).
 
 %% Fibonacci
@@ -249,6 +250,29 @@ initialize_instances(
 generate_message(UserName, I) ->
     Text = "Message " ++ integer_to_list(I) ++ " from " ++ UserName,
     {message, UserName, Text, os:system_time()}.
+
+test_test_para_inst() ->
+    io:format("Testing new solutions~n"),
+    A = server_para:init_instance('vub.be'),
+    B = server_para:init_instance('ulb.be'),
+    lists:foreach(
+        fun(Count) ->
+            
+            A_User = server:register_user(A, "A_user" ++ integer_to_list(Count)),
+            B_User = server:register_user(B, "B_user" ++ integer_to_list(Count)),
+            server:send_message(A_User, "A_user" ++ integer_to_list(Count), "A_Hello_" ++ integer_to_list(Count)),
+            server:send_message(B_User, "B_user" ++ integer_to_list(Count), "B_Hello_" ++ integer_to_list(Count)),
+            server:follow(A_User, "A_user" ++ integer_to_list(Count), "B_user" ++ integer_to_list(Count) ++ "@ulb.be"),
+            server:follow(B_User, "B_user" ++ integer_to_list(Count), "A_user" ++ integer_to_list(Count) ++ "@vub.be"),
+            M1 = server:get_timeline(A_User, "A_user" ++ integer_to_list(Count)),
+            M2 = server:get_timeline(B_User, "B_user" ++ integer_to_list(Count)),
+            M1,
+            io:fwrite("M1: ~p~n", [M1]),
+            io:fwrite("M2: ~p~n", [M2])
+            %M2
+        end,
+        lists:seq(1, 10)
+    ).
 
 % Get timeline of 10000 users (repeated 30 times).
 test_timeline_para_users() ->
