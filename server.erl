@@ -18,7 +18,9 @@
 %%
 %% Server API
 %%
-
+miauw() ->
+    Aaaa = "miauw",
+    Aaaa.
 % Register a new user.
 %
 % Returns a pid that should be used for subsequent requests by this client.

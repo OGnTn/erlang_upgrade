@@ -11,7 +11,7 @@
 -include_lib("eunit/include/eunit.hrl").
 
 -export([
-    init_instance/1,
+    init_instance/2,
     initialize_with/2,
     server_actor/2,
     instance_actor/7,
@@ -28,12 +28,12 @@ initialize() ->
 %%
 
 % Start server.
-init_instance(Address) ->
+init_instance(Address, MaxUsersPerInstance) ->
     %initialize_with(Address, dict:new()).
     FirstServer = spawn_link(?MODULE, server_actor, [Address, dict:new()]),
     catch unregister(server_actor),
     io:format("Server starting at ~p~n", [FirstServer]),
-    InstancePid = spawn_link(?MODULE, instance_actor, [Address, 0, FirstServer, 1, 2, [FirstServer], dict:new()]),
+    InstancePid = spawn_link(?MODULE, instance_actor, [Address, 0, FirstServer, 1, MaxUsersPerInstance, [FirstServer], dict:new()]),
     catch unregister(instance_actor),
     register(Address, InstancePid),
     io:format("Instance starting at ~p~n", [InstancePid]),
@@ -96,6 +96,7 @@ instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, Max
                 if
                     ContainsAt > 0 ->
                         [_Name, _] = string:tokens(Username, "@"),
+                        %io:fwrite("get_profile:~p~n", [Username]),
                         {_, UserServerPid} = dict:find(_Name, Users),
                         UserServerPid ! {Sender, get_profile, Username};
                     true ->
@@ -130,22 +131,23 @@ server_actor(HostAddress, Users) ->
             Sender ! {self(), timeline, UserName, timeline(Users, UserName)},
             server_actor(HostAddress, Users);
         {Sender, get_profile, UserName} ->
-            io:fwrite("---------------get_profile----------------~n"),
+            %io:fwrite("---------------get_profile----------------~n"),
             % split address from name
             [Name, Domain] = string:tokens(UserName, "@"),
             %get Pid of domain with Address
             DomainPid = whereis(list_to_atom(Domain)),
             %the address is the current server
-            io:fwrite("Self:~w~n", [HostAddress]),
-            io:fwrite("DomainPid:~w~n", [list_to_atom(Domain)]),
+            %io:fwrite("Self:~w~n", [HostAddress]),
+            %io:fwrite("DomainPid:~w~n", [list_to_atom(Domain)]),
+            %io:fwrite("userName:~w~n", [list_to_atom(UserName)]),
             DomainAtom = list_to_atom(Domain),
             if
                 DomainAtom == HostAddress ->
-                    io:fwrite("Address is current server~n"),
+                    %io:fwrite("Address is current server~n"),
                     %check if we have user
                     case get_user(Name, Users) of
                         {user, _, _, _} ->
-                            io:fwrite("User is here~n"),
+                            %io:fwrite("User is here~n"),
                             Sender !
                                 {
                                     self(),
@@ -154,22 +156,22 @@ server_actor(HostAddress, Users) ->
                                     sort_messages(get_messages(Users, Name))
                                 };
                         error ->
-                            io:fwrite("User is not here~n"),
+                            %io:fwrite("User is not here~n"),
                             HostAddress ! {Sender, get_profile, UserName}
                     end;
                     
                 %the address is remote
                 DomainAtom =/= HostAddress->
-                    io:fwrite("Address is remote~n"),
+                    %io:fwrite("Address is remote~n"),
                     DomainPid ! {Sender, get_profile, UserName}
             end,
             server_actor(HostAddress, Users);
         {Sender, is_profile_here, UserName} ->
-            io:fwrite("is_profile_here~n"),
+            %io:fwrite("is_profile_here~n"),
             [Name, _] = string:tokens(UserName, "@"),
             case get_user(Name, Users) of
                 {user, _, _, _} ->
-                    io:fwrite("found_profile~n"),
+                    %io:fwrite("found_profile~n"),
                     Sender ! {self(), profile, UserName, sort_messages(get_messages(Users, Name))};
                 error ->
                     Sender ! {self(), profile_not_here, UserName}

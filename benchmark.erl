@@ -8,7 +8,9 @@
     test_send_message/0,
     test_send_message_para_users/0,
     test_send_message_para_instances/0,
-    test_test_para_inst/0
+    test_test_para_inst/0,
+    test_bench/0,
+    experiment_setup/0
 ]).
 
 %% Fibonacci
@@ -17,6 +19,34 @@ fib(1) -> 1;
 fib(N) -> fib(N - 1) + fib(N - 2).
 
 %% Benchmark helpers
+
+test_bench() ->
+    [VubUsers, UlbUsers] = experiment_setup(),
+    %io:fwrite("Users: ~p~n", [Users]).
+    lists:foreach(
+        fun(N) ->
+            %select random user
+            [UserPid, UserName] = pick_random(VubUsers),
+            Timeline = server:get_timeline(UserPid, UserName),
+            io:fwrite("username: ~p~n", [list_to_atom(UserName)]),
+            io:fwrite("Timeline: ~p~n", [Timeline]),
+            
+            Timeline
+        end,
+            lists:seq(1, 1)
+        ),
+        lists:foreach(
+        fun(N) ->
+            %select random user
+            [UserPid, UserName] = pick_random(UlbUsers),
+            Timeline = server:get_timeline(UserPid, UserName),
+            io:fwrite("username: ~p~n", [list_to_atom(UserName)]),
+            io:fwrite("Timeline: ~p~n", [Timeline]),
+            Timeline
+        end,
+            lists:seq(1, 1)
+        ).
+
 
 % Recommendation: run each test at least 30 times to get statistically relevant
 % results.
@@ -105,6 +135,157 @@ test_fib_benchmark() ->
         Pids
     ).
 
+foreach(0, _, Res) -> Res;
+
+foreach(Count, Fun, Res) ->
+    NewRes = Fun(Count, Res),
+    foreach(Count - 1, Fun, NewRes).
+
+
+experiment_setup() ->
+    io:format("Experiment 1~n"),
+    io:format("Parameters:~n"),
+    io:format("Number of users: ~p~n", [5000]),
+    io:format("Number of subscriptions: ~p~n", [30]),
+    io:format("Number of messages: ~p~n", [10]),
+    io:format("~n"),
+    UserCount = 2500,
+    LocalSubscriptionsCount = 30,
+    RemoteSubscriptionsCount = 30,
+    MessageCount = 10,
+    MaxUsersPerServer = 50,
+    Vub = server_para:init_instance('vub.be', MaxUsersPerServer),
+    Ulb = server_para:init_instance('ulb.be', MaxUsersPerServer),
+    %VubUsers = [],
+    %UlbUsers = [],
+    VubUsers = foreach(2500, fun(Count, VubUsers) -> 
+            io:format("Iteration: ~p~n", [Count]),
+            %Make user on vub.be
+            UserName = "vub_user" ++ integer_to_list(Count),
+            User = server:register_user(Vub, UserName),
+            %send MessageCount messages
+            lists:foreach(
+                fun(I) ->
+                    server:send_message(User, UserName, "vub_" ++ integer_to_list(Count) ++ "_message_" ++ integer_to_list(I))
+                end,
+                lists:seq(1, MessageCount)
+            ),
+            %follow LocalSubscriptionsCount random users on vub.be
+            lists:foreach(
+                fun(I) ->
+                    server:follow(User, UserName, "vub_user" ++ integer_to_list(rand:uniform(UserCount))  ++ "@vub.be")
+                end,
+                lists:seq(1, LocalSubscriptionsCount)
+            ),
+            %follow RemoteSubscriptionsCount random users on ulb.be
+            lists:foreach(
+                fun(I) ->
+                    server:follow(User, UserName, "ulb_user" ++ integer_to_list(rand:uniform(UserCount)) ++ "@ulb.be")
+                end,
+                lists:seq(1, RemoteSubscriptionsCount)
+            ),
+
+            VubUsers ++ [[User, UserName]]
+        end, []),
+
+    %lists:foreach(
+    %    fun(Count, VubUsers) -> 
+    %        io:format("Iteration: ~p~n", [Count]),
+    %        %Make user on vub.be
+    %        UserName = "vub_user" ++ integer_to_list(Count),
+    %        User = server:register_user(Vub, UserName),
+    %        %send MessageCount messages
+    %        lists:foreach(
+    %            fun(I) ->
+    %                server:send_message(User, UserName, "vub_" ++ integer_to_list(Count) ++ "_message_" ++ integer_to_list(I))
+    %            end,
+    %            lists:seq(1, MessageCount)
+    %        ),
+    %        %follow LocalSubscriptionsCount random users on vub.be
+    %        lists:foreach(
+    %            fun(I) ->
+    %                server:follow(User, UserName, "vub_user" ++ integer_to_list(rand:uniform(UserCount))  ++ "@vub.be")
+    %            end,
+    %            lists:seq(1, LocalSubscriptionsCount)
+    %        ),
+    %        %follow RemoteSubscriptionsCount random users on ulb.be
+    %        lists:foreach(
+    %            fun(I) ->
+    %                server:follow(User, UserName, "ulb_user" ++ integer_to_list(rand:uniform(UserCount)) ++ "@ulb.be")
+    %            end,
+    %            lists:seq(1, RemoteSubscriptionsCount)
+    %        ),
+%
+    %        VubUsers = VubUsers ++ [User, UserName]
+    %    end,
+    %    lists:seq(1, 2500), [[User, UserName] | VubUsers]],
+    %),
+    UlbUsers = foreach(2500, fun(Count, UlbUsers) -> 
+            io:format("Iteration: ~p~n", [Count]),
+            %Make user on ulb.be
+            UserName = "ulb_user" ++ integer_to_list(Count),
+            User = server:register_user(Ulb, UserName),
+            %send MessageCount messages
+            lists:foreach(
+                fun(I) ->
+                    server:send_message(User, UserName, "ulb_" ++ integer_to_list(Count) ++ "_message_" ++ integer_to_list(I))
+                end,
+                lists:seq(1, MessageCount)
+            ),
+            %follow LocalSubscriptionsCount random users on ulb.be
+            lists:foreach(
+                fun(I) ->
+                    server:follow(User, UserName, "ulb_user" ++ integer_to_list(rand:uniform(UserCount))  ++ "@ulb.be")
+                end,
+                lists:seq(1, LocalSubscriptionsCount)
+            ),
+            %follow RemoteSubscriptionsCount random users on ulb.be
+            lists:foreach(
+                fun(I) ->
+                    server:follow(User, UserName, "vub_user" ++ integer_to_list(rand:uniform(UserCount)) ++ "@vub.be")
+                end,
+                lists:seq(1, RemoteSubscriptionsCount)
+            ),
+
+            UlbUsers ++ [[User, UserName]]
+
+        end, []),
+
+    %lists:foreach(
+    %    fun(Count) -> 
+    %        io:format("Iteration: ~p~n", [Count]),
+    %        %Make user on ulb.be
+    %        UserName = "ulb_user" ++ integer_to_list(Count),
+    %        User = server:register_user(Ulb, UserName),
+    %        %send MessageCount messages
+    %        lists:foreach(
+    %            fun(I) ->
+    %                server:send_message(User, UserName, "ulb_" ++ integer_to_list(Count) ++ "_message_" ++ integer_to_list(I))
+    %            end,
+    %            lists:seq(1, MessageCount)
+    %        ),
+    %        %follow LocalSubscriptionsCount random users on ulb.be
+    %        lists:foreach(
+    %            fun(I) ->
+    %                server:follow(User, UserName, "ulb_user" ++ integer_to_list(rand:uniform(UserCount))  ++ "@ulb.be")
+    %            end,
+    %            lists:seq(1, LocalSubscriptionsCount)
+    %        ),
+    %        %follow RemoteSubscriptionsCount random users on ulb.be
+    %        lists:foreach(
+    %            fun(I) ->
+    %                server:follow(User, UserName, "vub_user" ++ integer_to_list(rand:uniform(UserCount)) ++ "@vub.be")
+    %            end,
+    %            lists:seq(1, RemoteSubscriptionsCount)
+    %        ),
+%
+    %        UlbUsers = UlbUsers ++ [User, UserName]
+%
+    %    end,
+    %    lists:seq(1, 2500)
+    %),
+    [VubUsers, UlbUsers].
+
 % Creates a server with 5000 users following 25 others and sending 10 messages.
 %
 % Note that this code depends on the implementation of the server. You will need to
@@ -150,7 +331,8 @@ initialize_server() ->
 
 % Pick a random element from a list.
 pick_random(List) ->
-    lists:nth(rand:uniform(length(List)), List).
+    [Pid, UserName] = lists:nth(rand:uniform(length(List)), List),
+    [Pid, UserName].
 pick_random_remote_instance(NumberOfInstances, LocalInstance) ->
     Instances = [
         integer_to_list(I)
