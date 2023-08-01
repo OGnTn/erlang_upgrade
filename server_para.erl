@@ -45,8 +45,8 @@ init_instance(Address, MaxUsersPerInstance) ->
 initialize_with(Address, Users) ->
     ServerPid = spawn_link(?MODULE, server_actor, [Users]),
     catch unregister(server_actor),
-    io:format("Server starting at ~p~n", [Address]),
-    io:format("Server PID: ~p~n", [ServerPid]),
+    %io:format("Server starting at ~p~n", [Address]),
+    %io:format("Server PID: ~p~n", [ServerPid]),
     register(Address, ServerPid),
     ServerPid.
 
@@ -66,7 +66,7 @@ instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, Max
         {Sender, register_user, UserName} ->
             case dict:find(UserName, Users) of
                 {ok, Value}->
-                    io:format("User ~p already exists~n", [Value]),
+                    %io:format("User ~p already exists~n", [Value]),
                     Sender ! {self(), user_already_exists},
                     instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users);
                 _Else ->
@@ -91,13 +91,14 @@ instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, Max
                     instance_actor(Address, NewCurrentUserCount, NewCurrentServer, NewCurrentServerCount, MaxUsersPerInstance, NewServerPids, NewUsers)
             end;
         {Sender, get_profile, Username} ->
-            
+            %io:format("get_profile instance~n"),
             ContainsAt = string:str(Username, "@"),
                 if
                     ContainsAt > 0 ->
                         [_Name, _] = string:tokens(Username, "@"),
                         %io:fwrite("get_profile:~p~n", [Username]),
                         {_, UserServerPid} = dict:find(_Name, Users),
+                        %io:fwrite("get_profile:~p~n", [UserServerPid]),
                         UserServerPid ! {Sender, get_profile, Username};
                     true ->
                         {_, UserServerPid} = dict:find(Username, Users),
@@ -112,7 +113,7 @@ server_actor(HostAddress, Users) ->
     receive
         {Sender, register_user, UserName} ->
             NewUsers = dict:store(UserName, create_user(UserName), Users),
-            io:fwrite("registering user ~p~n", [UserName]),
+            %io:fwrite("registering user ~p~n", [UserName]),
             Sender ! {self(), user_registered},
             server_actor(HostAddress, NewUsers);
         {Sender, log_in, _UserName} ->
@@ -128,7 +129,9 @@ server_actor(HostAddress, Users) ->
             Sender ! {self(), message_sent},
             server_actor(HostAddress, NewUsers);
         {Sender, get_timeline, UserName} ->
+            io:format("get_timeline server~n"),
             Sender ! {self(), timeline, UserName, timeline(Users, UserName)},
+            io:format("sent_timeline server~n"),
             server_actor(HostAddress, Users);
         {Sender, get_profile, UserName} ->
             %io:fwrite("---------------get_profile----------------~n"),
@@ -218,6 +221,7 @@ get_messages(Users, UserName) ->
 % Generate timeline for `UserName`.
 timeline(Users, UserName) ->
     {user, _, Subscriptions, _} = get_user(UserName, Users),
+    %io:format("Timeloine:~n"),
     UnsortedMessagesForTimeLine =
         lists:foldl(
             fun(FollowedUserName, AllMessages) ->
@@ -226,19 +230,30 @@ timeline(Users, UserName) ->
                     ContainsAt > 0 ->
                         [_Name, Domain] = string:tokens(FollowedUserName, "@"),
                         DomainPid = whereis(list_to_atom(Domain)),
-                        DomainPid ! {self(), get_profile, FollowedUserName},
-                        receive
-                            {_ResponsePid, profile, FollowedUserName, Messages} ->
-                                Messages
-                        end,
-                        AllMessages ++ Messages;
+                    
+                        case get_user(_Name, Users) of
+                            error ->
+                                DomainPid ! {self(), get_profile, FollowedUserName},
+                                %io:format("Getting profile from domain~n"),
+                                receive
+                                    {_ResponsePid, profile, FollowedUserName, Messages} ->
+                                        Messages
+                                end,
+                                %io:format("Got profile from domain~n"),
+                                AllMessages ++ Messages;
+                            User -> 
+                                %io:format("Got profile from here~n"),
+                                AllMessages ++ get_messages(Users, _Name)
+                        end;
                     true ->
                         AllMessages ++ get_messages(Users, FollowedUserName)
                 end
             end,
             [],
+            
             sets:to_list(Subscriptions)
         ),
+    %io:format("Timeloine:~n"),
     sort_messages(UnsortedMessagesForTimeLine).
 
 % Sort `Messages` from most recent to oldest.

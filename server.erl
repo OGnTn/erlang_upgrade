@@ -71,7 +71,9 @@ get_timeline(ServerPid, UserName) ->
     ServerPid ! {self(), get_timeline, UserName},
     receive
         {_ResponsePid, timeline, UserName, Timeline} ->
-            Timeline
+            Timeline;
+        _ ->
+            []
     end.
 
 % Request the profile of a user.
