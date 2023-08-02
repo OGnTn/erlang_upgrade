@@ -5,10 +5,10 @@
 # set -o pipefail makes the script exit if any command in a pipeline fails
 set -euo pipefail
 
-for i in 10 40 70 100 250
+for i in 2 4 8 16 32 64
 do
     echo "---"
-    echo "> message, $i mupi"
-    erl +S 4 -noshell -s benchmark_final mupi $i -s init stop
+    echo "> message, $i threads"
+    erl +S $i -noshell -s benchmark_final threadpool -s init stop
     echo "---"
 done

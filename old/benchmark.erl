@@ -10,7 +10,7 @@
     test_test_para_inst/0,
     test_bench/0,
     mupi/1,
-    timeline_worker/4
+    timeline_worker/2
 ]).
 
 %% Benchmark helpers
@@ -71,9 +71,9 @@ collect_replies(Workers) ->
         end
     end.
     
-timeline_worker(UserPid, UserName, Users, ParentPid) ->
-    [UserPid2, UserName2] = pick_random(Users),
-    io:format("getting timeline for ~p at pid~p ~n", [UserName, UserPid]),
+timeline_worker(Users, ParentPid) ->
+    [UserPid, UserName] = pick_random(Users),
+    %io:format("getting timeline for ~p at pid~p ~n", [UserName, UserPid]),
     %server:get_timeline(UserPid2, UserName2),
     UserPid ! {self(), get_timeline, UserName},
     receive
@@ -82,7 +82,7 @@ timeline_worker(UserPid, UserName, Users, ParentPid) ->
         _ ->
             []
     end,
-    io:format("got timeline for ~p at pid~p ~n", [UserName, UserPid]),
+    %io:format("got timeline for ~p at pid~p ~n", [UserName, UserPid]),
     ParentPid ! {self(), done}.
 
 
@@ -90,16 +90,16 @@ timeline_benchmark(Users, Fd) ->
     StartTime = os:timestamp(),
     %[UserPid, UserName] = pick_random(Users),
     %pick RequestAmount random users
-    [UserPid, UserName] = pick_random(Users),
+    %[UserPid, UserName] = pick_random(Users),
     %server:get_timeline(UserPid, UserName),
-    RequestAmount = 10,
+    RequestAmount = 1,
     %RandomUsers = get_x_users(Users, RequestAmount, []),
     %Workers = lists:foreach(
     %    fun(User) ->
     %        spawn(?MODULE, timeline_worker, [UserPid, UserName, User, self()])
     %    end, RandomUsers),
 
-    Workers = [spawn(?MODULE, timeline_worker, [UserPid, UserName, Users, self()]) || _ <- lists:seq(1, RequestAmount)],
+    Workers = [spawn(?MODULE, timeline_worker, [Users, self()]) || _ <- lists:seq(1, RequestAmount)],
     collect_replies(Workers),
     WallClockTime = timer:now_diff(os:timestamp(), StartTime),
     io:fwrite(Fd, "~f~n",[WallClockTime/1000.000]).

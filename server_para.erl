@@ -17,7 +17,8 @@
     instance_actor/7,
     typical_session_1/1,
     typical_session_2/1,
-    initialize/0
+    initialize/0,
+    handle_timeline/4
 ]).
 
 initialize() ->
@@ -73,7 +74,7 @@ instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, Max
                     if
                         CurrentUserCount >= MaxUsersPerInstance ->
                             NewServerPid = spawn_link(?MODULE, server_actor, [Address, dict:new()]),
-                            io:format("Too many users, new server starting at ~p~n", [NewServerPid]),
+                            %io:format("Too many users, new server starting at ~p~n", [NewServerPid]),
                             NewCurrentServer = NewServerPid,
                             NewCurrentServerCount = CurrentServerCount + 1,
                             NewCurrentUserCount = 0,
@@ -91,20 +92,23 @@ instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, Max
                     instance_actor(Address, NewCurrentUserCount, NewCurrentServer, NewCurrentServerCount, MaxUsersPerInstance, NewServerPids, NewUsers)
             end;
         {Sender, get_profile, Username} ->
-            %io:format("get_profile instance~n"),
+            %io:format("get_profile on instance~p~n", [self()]),
             ContainsAt = string:str(Username, "@"),
                 if
                     ContainsAt > 0 ->
                         [_Name, _] = string:tokens(Username, "@"),
                         %io:fwrite("get_profile:~p~n", [Username]),
                         {_, UserServerPid} = dict:find(_Name, Users),
+                        %io:format("found UserServerPid: ~p~n", [UserServerPid]),
                         %io:fwrite("get_profile:~p~n", [UserServerPid]),
                         UserServerPid ! {Sender, get_profile, Username};
                     true ->
                         {_, UserServerPid} = dict:find(Username, Users),
+                        %io:format("found UserServerPid: ~p~n", [UserServerPid]),
                         UserServerPid ! {Sender, get_profile, Username}
                 end,
-            instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users)
+            instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users);
+        _ -> io:format("Unknown message on instance~n"), instance_actor(Address, CurrentUserCount, CurrentServer, CurrentServerCount, MaxUsersPerInstance, ServerPids, Users)
     end.
 
 
@@ -129,62 +133,72 @@ server_actor(HostAddress, Users) ->
             Sender ! {self(), message_sent},
             server_actor(HostAddress, NewUsers);
         {Sender, get_timeline, UserName} ->
-            io:format("get_timeline server~n"),
-            Sender ! {self(), timeline, UserName, timeline(Users, UserName)},
-            io:format("sent_timeline server~n"),
+            %io:format("get_timeline server~n"),
+            %Sender ! {self(), timeline, UserName, timeline(Users, UserName, HostAddress)},
+            spawn_link(?MODULE, handle_timeline, [Users, UserName, HostAddress, Sender]),
+            %io:format("sent_timeline server~n"),
             server_actor(HostAddress, Users);
         {Sender, get_profile, UserName} ->
-            %io:fwrite("---------------get_profile----------------~n"),
-            % split address from name
-            [Name, Domain] = string:tokens(UserName, "@"),
-            %get Pid of domain with Address
-            DomainPid = whereis(list_to_atom(Domain)),
-            %the address is the current server
-            %io:fwrite("Self:~w~n", [HostAddress]),
-            %io:fwrite("DomainPid:~w~n", [list_to_atom(Domain)]),
-            %io:fwrite("userName:~w~n", [list_to_atom(UserName)]),
-            DomainAtom = list_to_atom(Domain),
-            if
-                DomainAtom == HostAddress ->
-                    %io:fwrite("Address is current server~n"),
-                    %check if we have user
-                    case get_user(Name, Users) of
-                        {user, _, _, _} ->
-                            %io:fwrite("User is here~n"),
-                            Sender !
-                                {
-                                    self(),
-                                    profile,
-                                    UserName,
-                                    sort_messages(get_messages(Users, Name))
-                                };
-                        error ->
-                            %io:fwrite("User is not here~n"),
-                            HostAddress ! {Sender, get_profile, UserName}
-                    end;
-                    
-                %the address is remote
-                DomainAtom =/= HostAddress->
-                    %io:fwrite("Address is remote~n"),
-                    DomainPid ! {Sender, get_profile, UserName}
-            end,
-            server_actor(HostAddress, Users);
-        {Sender, is_profile_here, UserName} ->
-            %io:fwrite("is_profile_here~n"),
-            [Name, _] = string:tokens(UserName, "@"),
-            case get_user(Name, Users) of
-                {user, _, _, _} ->
-                    %io:fwrite("found_profile~n"),
-                    Sender ! {self(), profile, UserName, sort_messages(get_messages(Users, Name))};
-                error ->
-                    Sender ! {self(), profile_not_here, UserName}
-            end,
+            ContainsAt = string:str(UserName, "@"),
+                if
+                    ContainsAt > 0 ->
+                        [Name, Domain] = string:tokens(UserName, "@"),
+                        %get Pid of domain with Address
+                        DomainAtom = list_to_atom(Domain),
+                        DomainPid = whereis(DomainAtom),
+                        %io:format("DomainPid: ~p~n", [DomainPid]),
+                        %io:format("HostAdress: ~p~n", [HostAddress]),
+                        if
+                            DomainAtom == HostAddress ->
+                                %io:fwrite("Address is current server~n"),
+                                case get_user(Name, Users) of
+                                    {ok, User} ->
+                                        %io:fwrite("User is here~n"),
+                                        Sender !
+                                            {
+                                                self(),
+                                                profile,
+                                                UserName,
+                                                sort_messages(get_messages(Users, Name))
+                                            };
+                                    error ->
+                                        %io:fwrite("User is not here~n"),
+                                        HostAddress ! {Sender, get_profile, UserName}
+                                end;
+
+                            %the address is remote
+                            DomainAtom =/= HostAddress->
+                                %io:fwrite("Address is remote~n"),
+                                DomainPid ! {Sender, get_profile, UserName}
+                        end,
+                        server_actor(HostAddress, Users);
+                    true ->
+                        case get_user(UserName, Users) of
+                            {ok, User} ->
+                                Sender !
+                                    {
+                                        self(),
+                                        profile,
+                                        UserName,
+                                        sort_messages(get_messages(Users, UserName))
+                                    };
+                            _ ->
+                                Sender ! {self(), profile_not_here, UserName}
+                        end,
+                        server_actor(HostAddress, Users)
+                end;
+        _ ->
+            io:format("Unknown message on server~n"),
             server_actor(HostAddress, Users)
     end.
 
 %%
 %% Internal Functions
 %%
+
+handle_timeline(Users, UserName, HostAddress, Sender) ->
+    Timeline = timeline(Users, UserName, HostAddress),
+    Sender ! {self(), timeline, UserName, Timeline}.
 
 % Create a new user with `UserName`.
 create_user(UserName) ->
@@ -196,54 +210,72 @@ create_user(UserName) ->
 % you can assume that all users that use the system exist.
 get_user(UserName, Users) ->
     case dict:find(UserName, Users) of
-        {ok, User} -> User;
-        _ -> error
+        {ok, User} -> {ok, User};
+        _ -> {user_not_found, UserName}
     end.
 
 % Update `Users` so `UserName` follows `UserNameToFollow`.
 follow(Users, UserName, UserNameToFollow) ->
-    {user, Name, Subscriptions, Messages} = get_user(UserName, Users),
+    {ok, {user, Name, Subscriptions, Messages}} = get_user(UserName, Users),
     NewUser = {user, Name, sets:add_element(UserNameToFollow, Subscriptions), Messages},
     dict:store(UserName, NewUser, Users).
 
 % Modify `Users` to store `Message`.
 store_message(Users, Message) ->
     {message, UserName, _MessageText, _Timestamp} = Message,
-    {user, Name, Subscriptions, Messages} = get_user(UserName, Users),
+    {ok, {user, Name, Subscriptions, Messages}} = get_user(UserName, Users),
     NewUser = {user, Name, Subscriptions, Messages ++ [Message]},
     dict:store(UserName, NewUser, Users).
 
 % Get all messages by `UserName`.
 get_messages(Users, UserName) ->
-    {user, _, _, Messages} = get_user(UserName, Users),
+    {ok, User} = get_user(UserName, Users),
+    {user, _, _, Messages} = User,
     Messages.
 
 % Generate timeline for `UserName`.
-timeline(Users, UserName) ->
-    {user, _, Subscriptions, _} = get_user(UserName, Users),
-    %io:format("Timeloine:~n"),
+timeline(Users, UserName, HostAdress) ->
+    {ok, {user, _, Subscriptions, _}} = get_user(UserName, Users),
+    %io:format("Timeline for: ~p, at ~p~n", [UserName, self()]),
     UnsortedMessagesForTimeLine =
         lists:foldl(
             fun(FollowedUserName, AllMessages) ->
                 ContainsAt = string:str(FollowedUserName, "@"),
                 if
                     ContainsAt > 0 ->
-                        [_Name, Domain] = string:tokens(FollowedUserName, "@"),
+                        [Name, Domain] = string:tokens(FollowedUserName, "@"),
+                        %io:format("Domain for subscription ~p: ~p~n", [FollowedUserName, Domain]),
                         DomainPid = whereis(list_to_atom(Domain)),
-                    
-                        case get_user(_Name, Users) of
-                            error ->
+                        DomainAtom = list_to_atom(Domain),
+                        %io:format("DomainPid for subscription ~p: ~p~n", [FollowedUserName, DomainPid]),
+                        if
+                            DomainAtom == HostAdress ->
+                                %io:fwrite("Address is current instance~n"),
+                                User = get_user(Name, Users),
+                                case User of
+                                    {ok, {user, _, _, _}} ->
+                                        %io:format("User is here~n"),
+                                        {ok, {user, _, _, Messages}} = User,
+                                        AllMessages ++ Messages;
+                                    _ ->
+                                        %io:format("User is not here~p~n", [User]),
+                                        %io:format("User is on another subserver~n"),
+                                        HostAdress ! {self(), get_profile, Name},
+                                        receive
+                                            {_, profile, _, Messages} ->
+                                                AllMessages ++ Messages;
+                                            _ -> io:format("Error on waiting for profile from subserver~n"), AllMessages
+                                        end
+                                end;
+                            DomainAtom =/= HostAdress ->
+                                %io:fwrite("Address is remote instance~n"),
                                 DomainPid ! {self(), get_profile, FollowedUserName},
-                                %io:format("Getting profile from domain~n"),
                                 receive
-                                    {_ResponsePid, profile, FollowedUserName, Messages} ->
-                                        Messages
-                                end,
-                                %io:format("Got profile from domain~n"),
-                                AllMessages ++ Messages;
-                            User -> 
-                                %io:format("Got profile from here~n"),
-                                AllMessages ++ get_messages(Users, _Name)
+                                    {_, profile, _, Messages} ->
+                                        %io:fwrite("Got profile from remote instance~n"),
+                                        AllMessages ++ Messages;
+                                    _ -> io:format("Error on waiting for profile from remote instance~n"), AllMessages
+                                end
                         end;
                     true ->
                         AllMessages ++ get_messages(Users, FollowedUserName)
