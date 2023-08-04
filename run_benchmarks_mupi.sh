@@ -5,7 +5,7 @@
 # set -o pipefail makes the script exit if any command in a pipeline fails
 set -euo pipefail
 
-for i in 10 40 70 100 250
+for i in 10 40 70 100 250 500 1000 3000 6000
 do
     echo "---"
     echo "> message, $i mupi"
